@@ -1,1 +1,1 @@
-# LandscapePaintingJS
+# island-painting-js

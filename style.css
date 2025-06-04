@@ -1,0 +1,236 @@
+:root {
+    --base-color: white;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background: rgb(223, 240, 241);
+    overflow: hidden;
+}
+
+#contCont {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-45deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+#cont {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: min(80vw, 80vh);
+    /* Use the smaller of 80% viewport width or height */
+    height: min(80vw, 80vh);
+    /* This keeps it square and responsive */
+    transform: rotate3d(1, 1, 0, 55deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    background-color: rgb(30, 144, 255);
+}
+
+.square {
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    border-radius: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    will-change: transform;
+}
+
+/* GOOD FOR 9x9 transform: rotate3d(1, 1, 0, -55deg) translate3d(20px, -20px, 1px) rotate3d(0, 0, 1, 45deg); */
+
+/* transform: rotate3d(1, 1, 0, -55deg) translate3d(30px, -30px, 10px) rotate3d(0, 0, 1, 45deg); */
+.wave {
+    animation: bounce 4s infinite;
+    will-change: filter;
+}
+
+.clicked {
+    animation: clicked 1s forwards;
+}
+
+@keyframes clicked {
+    0% {}
+
+    50% {
+        transform: translate3d(0, 0, -.5px);
+    }
+
+    100% {}
+}
+
+@keyframes bounce {
+    0% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+
+    50% {
+        filter: hue-rotate(5deg) brightness(1.1);
+    }
+
+    100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+}
+
+.controlsContainer {
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 2rem;
+    /* Changed from top to bottom */
+    left: 50%;
+    /* Center horizontally */
+    transform: translateX(-50%);
+    /* Center horizontally */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.control {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    padding: 8px 12px;
+    position: relative;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    border: 1px solid var(--base-color);
+    color: var(--base-color);
+    font-family: sans-serif;
+    font-size: 12px;
+    min-width: 30px;
+    background: transparent;
+    transition: background-color 0.1s ease;
+    will-change: transform, background-color;
+}
+
+.control.pressed {
+    background: white;
+    color: black;
+}
+
+.control.raised {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(255, 255, 255, 0.1) inset;
+    transform: translateY(-1px);
+}
+
+.control.sunken {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px);
+}
+
+.touchDemo {
+    pointer-events: none;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+    border: 5px solid var(--base-color);
+    animation: touchAnimation 5s forwards ease;
+}
+
+@keyframes touchAnimation {
+    100% {
+        opacity: 0;
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.villager {
+    opacity: 100% !important;
+    width: 80%;
+    height: 80%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: rotate3d(1, 1, 0, -55deg) translate3d(5px, -5px, 12px) rotate3d(0, 0, 1, 45deg);
+    z-index: 10;
+    background-image: url("./meeple.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    will-change: auto;
+}
+
+.skull {
+    opacity: 100% !important;
+    width: 80%;
+    height: 80%;
+    transform: none !important;
+    /* Remove all transforms */
+    z-index: 10;
+    background-image: url("./skull.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    will-change: auto;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+@keyframes squish {
+    0% {
+        transform: rotate3d(1, 1, 0, -55deg) translate3d(5px, -5px, 12px) rotate3d(0, 0, 1, 45deg) scaleY(1);
+        transform-origin: bottom center;
+    }
+
+    50% {
+        transform: rotate3d(1, 1, 0, -55deg) translate3d(5px, -5px, 6px) rotate3d(0, 0, 1, 45deg) scaleY(0.2);
+        transform-origin: bottom center;
+    }
+
+    100% {
+        transform: rotate3d(1, 1, 0, -55deg) translate3d(5px, -5px, 12px) rotate3d(0, 0, 1, 45deg) scaleY(1);
+        transform-origin: bottom center;
+    }
+}
+
+@keyframes hop {
+    0% {
+        transform: translateZ(0px) scaleY(1);
+    }
+
+    50% {
+        transform: translateZ(6px) scaleY(1.3);
+    }
+
+    100% {
+        transform: translateZ(0px) scaleY(1);
+    }
+}
+
+.villager.squishing {
+    animation: squish 0.15s ease-in-out;
+}
+
+.villager.hopping {
+    animation: hop 0.2s ease-out;
+}
